@@ -1,0 +1,186 @@
+<!--=======================================================================================================-->
+<!--=                         Start of page content                                                       =-->
+<!--=======================================================================================================-->
+
+<h2 align="center"> <em> Time Reader </em> </h2>
+<p align="center"> Final project by</p>
+<p align="center"> <b> Alon Arbel & Gev Keren </b> </p>
+<p align="center"> <a href="mailto:" class="course"> alonar96@gmail.com | gevkeren@gmail.com </a> </p>
+
+<hr>
+
+<h3 align="left"> Introduction </h3>
+<p align="justify">
+    With the development of the world, fewer and fewer people encounter analog clocks in their lives. As a result, fewer and fewer people know what they are and how to read the time.<br><br>
+    Reading the time of an analog clock is still highly important and relevant, and doing so automatically can improve several aspects of our lives.<br><br>
+    Our goal is to calculate the time efficeintly and accurately out of an image, using computational vision methods.
+</p>
+<h3 align="left"> Approach and Method</h3>
+<p align="justify"> Our implementation has 6 steps:</p>
+<h4 align="justify">
+    1. Image processing:
+</h4>
+<p align="justify">
+    Reading an image and converting it to a grayscale representation.
+</p>
+<h4 align="justify">
+    2. Clock detection: 
+</h4>
+<p align="justify">
+    Detecting the clock's frame out of the image using cv2.HoughCircles method.
+    <br><br>
+    cv2.HoughCircles method uses Canny's edge detection algorithm in its process.
+</p>
+<h4 align="justify">
+    3. Image cropping & resizing:
+</h4>
+<p align="justify">
+    Cropping the image around the detected clock in order to screen other objects from the picture and centralize the clock.
+    <br><br>
+    Resizing the clock to a uniform size (250x250). The uniform size helps us find a uniform threshold for the later steps.
+</p>
+<h4 align="justify">
+    4. Hands detection:
+</h4>
+<p align="justify">
+    Using the cv2.threshold method we convert the image to a binary image on which we apply the 
+    cv2.findContours method in order to find its contours.
+    <br><br>
+    Those contours are then screened by their area, and we extract the hands contours of the clock.
+</p>
+<p align="justify">
+    The hands are than being represented by lines using the cv2.HoughLinesP method.
+</p>
+<h4 align="justify">
+    5. Hands filter and classification:
+</h4>
+<p align="justify">
+    Centralizing the detected lines (hands) to the clock's center, screening them by angle and sorting them by length.
+    <br><br>
+    Based on the number of lines we classify the line role (Hours, minutes or seconds).
+</p>
+<h4 align="justify">
+    6. Time calculation:
+</h4>
+<p align="justify">
+    Besaed on the number of detected hands, we apply the appropriate 
+    calculation and return the time in a HH:MM:SS or HH:MM format.
+</p>
+
+<h3 align="left"> Results</h3>
+<p align="justify">
+    The image:<br>
+<img src="ICBV231-20-Images/ICBV231-20-actual_img.png"> <img src="ICBV231-20-Images/ICBV231-20-actual_img2.png"> 
+<img src="ICBV231-20-Images/ICBV231-20-actual3.png"> <img src="ICBV231-20-Images/ICBV231-20-actual4.png"> 
+</p>
+<p align="justify">
+    Image processing:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-grayscale.png"> <img src="ICBV231-20-Images/ICBV231-20-grayscale2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-gray3.png"> <img src="ICBV231-20-Images/ICBV231-20-gray4.png">
+</p>
+<p align="justify">
+    Clock detection:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-circles.png"> <img src="ICBV231-20-Images/ICBV231-20-circles2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-circles3.png"> <img src="ICBV231-20-Images/ICBV231-20-circles4.png"> 
+</p>
+<p align="justify">
+    Cropping & Resizing the image:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-cropped.png"> <img src="ICBV231-20-Images/ICBV231-20-cropped2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-cropped3.png"> <img src="ICBV231-20-Images/ICBV231-20-cropped4.png"> 
+</p>
+<p align="justify">
+    Hands Detection:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-hands_without.png"> <img src="ICBV231-20-Images/ICBV231-20-hands_without2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-without3.png"> <img src="ICBV231-20-Images/ICBV231-20-without4.png"> 
+</p>
+<p align="justify">
+    Hands Filter and classification:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-hands_with.png"> <img src="ICBV231-20-Images/ICBV231-20-hands_with2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-with3.png"> <img src="ICBV231-20-Images/ICBV231-20-with4.png"> 
+</p>
+<p align="justify">
+    Time calculation:<br>
+    <img src="ICBV231-20-Images/ICBV231-20-final.png"> <img src="ICBV231-20-Images/ICBV231-20-final2.png"> 
+    <img src="ICBV231-20-Images/ICBV231-20-final3.png"> <img src="ICBV231-20-Images/ICBV231-20-final4.png"> 
+</p>
+<h4 align="justify">
+    The app managed to read time from a diverse variety of images:
+</h4>
+<p align="justify">
+    1. Wall, hand & pocket clocks.<br><br>
+    2. Clocks with 2 or 3 hands.<br><br>
+    3. Clocks with one hand above the other.<br><br>
+    4. Clocks that are in the background of the image, which consists of other objects as well.<br><br>
+    5. Different sizes of clocks.<br><br>
+    6. Different sizes of images.<br><br>
+    7. Clocks with or without numbers.
+
+</p>
+<h3 align="left"> Project's Video</h3>
+<i>Do not touch. Here your project's video clip will be embedded by us...</i>
+<p align="justify">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/LYcXAEZfQFY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</p>
+
+<h3 align="left"> Conclusions</h3>
+<p align="justify">
+    The attempt to read an analog clock from an image was successfull.<br>
+    There are still several features that can be added in order to improve the app:<br>
+    <ul>
+        <li>
+            Reading a clock that is not straighten (the '12' is not in the 'north' of the image).
+        </li>
+        <li>
+            Reading a wider hands formats, s.t the minutes is larger than the seconds or the hands are not straight lines.
+        </li>
+        <li>
+            Reading clocks which are not round.
+        </li>
+    </ul>
+    The project was challenging, but that what made it satisfying to achieve our goals.<br>
+    We learnt a lot by researching and implementing computational vision methods and approaches.<br>
+</p>
+
+<h3 align="left"> Additional Information</h3>
+<p align="justify">
+</p>
+<ul>
+    <li> Full project report (<a href="ICBV231-20-ProjectReport.pdf" class="course">PDF</a>).
+    </li>
+    <li> Oral presentation slides (<a href="ICBV231-20-Presentation.pptx" class="course">ppt</a> , <a href="ICBV231-20-PresentationPDF.pdf" class="course">PDF</a>).
+    </li>
+    <li> Project's video file (<a href="https://drive.google.com/drive/folders/1Q8sruTs5BJ_NHssiAY6ND7XAP5LvLFqS?usp=sharing" class="course">video_file</a>).
+    </li>
+    <li> Source Code (<a href="ICBV231-20-SourceCode.ipynb" class="course">Downloadable source code</a>).
+    </li>
+</ul>
+<p></p>
+<h4 align="Justify"> Course subject's that were used:</h4>
+<p>
+    <ul>
+        <li>Edge detection</li>
+        <li>Hough Transforms (lines & circles)</li>
+        <li>Image Processing</li>
+    </ul>
+</p>
+    <h4 align="Justify"> Other relatable methods & approaches:</h4>
+    <ul>
+        <li>Contours detection</li>
+        <li>Thresholding</li>
+    </ul>
+<h3 align="left"> References </h3>
+<p align="justify">
+    <ul>
+        <li>Threshold <a href="https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html" class="course">[1]</a></li>
+        <li>HoughCircles <a href="https://docs.opencv.org/4.x/da/d53/tutorial_py_houghcircles.html" class="course">[2]</a></li>
+        <li>HoughLinesP <a href="https://docs.opencv.org/3.4/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb" class="course">[3]</a></li>
+        <li>Contours<a href="https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html" class="course">[4]</a></li>
+        <li>Canny's Edge Detection<a href="https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html" class="course">[5]</a></li>
+
+    </ul>
+</p>
+
+<!--=======================================================================================================-->
+<!--=                         End of page content                                                       =-->
+<!--=======================================================================================================-->
+<notoc></notoc>
